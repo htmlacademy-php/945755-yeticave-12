@@ -1,45 +1,48 @@
 <?php
 $is_auth = rand(0, 1);
 $user_name = 'Кирилл';
-$index = 0;
-$footerindex = 0;
-$categories = ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'];
-$num = count($categories);
+$categories = [
+    'boards' => 'Доски и лыжи',
+    'fasteners' => 'Крепления',
+    'boots' => 'Ботинки',
+    'clothes' => 'Одежда',
+    'tools' => 'Инструменты',
+    'other' => 'Разное'];
 $products = [
     [
         'title' => '2014 Rossignol District Snowboard',
-        'category' => 'Доски и лыжи',
-        'price' => '10999',
+        'category' => $categories['boards'],
+        'price' => 10999,
         'Url_picture' => 'img/lot-1.jpg'
     ],
     [
         'title' => 'DC Ply Mens 2016/2017 Snowboard',
-        'category' => 'Доски и лыжи',
-        'price' => '159999',
+        'category' => $categories['boards'],
+        'price' => 159999,
         'Url_picture' => 'img/lot-2.jpg'
     ],
     [
         'title' => 'Крепления Union Contact Pro 2015 года размер L/XL',
-        'category' => 'Крепления',
-        'price' => '8000',
+        'category' => $categories['fasteners'],
+        'price' => 8000,
         'Url_picture' => 'img/lot-3.jpg'
     ],
     [
         'title' => 'Ботинки для сноуборда DC Mutiny Charocal',
-        'category' => 'Ботинки',
-        'price' => '10999',
+        'category' => $categories['boots'],
+        'price' => 10999,
         'Url_picture' => 'img/lot-4.jpg'
     ],
     [
         'title' => 'Куртка для сноуборда DC Mutiny Charocal',
-        'category' => 'Одежда',
-        'price' => '7500',
+        'category' => $categories['clothes'],
+        'price' => 7500,
         'Url_picture' => 'img/lot-5.jpg'
     ],
     [
         'title' => 'Маска Oakley Canopy',
-        'category' => 'Разное',
-        'price' => '5400',
+        'category' => $categories['other'],
+        'price' => 5400,
         'Url_picture' => 'img/lot-6.jpg'
     ]
 ];
@@ -95,12 +98,11 @@ $products = [
                 <h2 class="promo__title">Нужен стафф для катки?</h2>
                 <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
                 <ul class="promo__list">
-                    <?php while ($index < $num) : ?>
+                    <?php foreach ($categories as $modifier => $category) : ?>
                         <li class="promo__item promo__item--boards">
-                            <a class="promo__link" href="pages/all-lots.html"><?= $categories[$index]; ?></a>
+                            <a class="promo__link" href="pages/all-lots.html"><?= $categories[$modifier]; ?></a>
                         </li>
-                        <?php $index++; ?>
-                    <?php endwhile; ?>
+                    <?php endforeach; ?>
                 </ul>
             </section>
             <section class="lots">
@@ -108,18 +110,18 @@ $products = [
                     <h2>Открытые лоты</h2>
                 </div>
                 <ul class="lots__list">
-                    <?php foreach ($products as $key => $val) : ?>
+                    <?php foreach ($products as $product) : ?>
                         <li class="lots__item lot">
                             <div class="lot__image">
-                                <img src="<?= $val['Url_picture'] ?>" width="350" height="260" alt="">
+                                <img src="<?= $product['Url_picture'] ?>" width="350" height="260" alt="">
                             </div>
                             <div class="lot__info">
-                                <span class="lot__category"><?= $val['category'] ?></span>
-                                <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?= $val['title'] ?></a></h3>
+                                <span class="lot__category"><?= $product['category'] ?></span>
+                                <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?= $product['title'] ?></a></h3>
                                 <div class="lot__state">
                                     <div class="lot__rate">
-                                        <span class="lot__amount"><?= $val['price'] ?></span>
-                                        <span class="lot__cost"><?= $val['price'] ?><b class="rub">р</b></span>
+                                        <span class="lot__amount"><?= $product['price'] ?></span>
+                                        <span class="lot__cost"><?= $product['price'] ?><b class="rub">р</b></span>
                                     </div>
                                     <div class="lot__timer timer">
                                         12:23
@@ -136,12 +138,12 @@ $products = [
     <footer class="main-footer">
         <nav class="nav">
             <ul class="nav__list container">
-                <?php while ($footerindex < $num) : ?>
+                <?php foreach ($categories as $modifier => $category) : ?>
                     <li class="nav__item">
-                        <a href="pages/all-lots.html"><?= $categories[$footerindex]; ?></a>
+                        <a href="pages/all-lots.html"><?= $categories[$modifier]; ?></a>
                     </li>
                     <?php $footerindex++; ?>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
 
             </ul>
         </nav>
@@ -180,10 +182,7 @@ $products = [
                     <span class="visually-hidden">Вконтакте</span>
                     <svg width="27" height="27" viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg">
                         <circle stroke="#879296" fill="none" cx="13.5" cy="13.5" r="12.666" />
-                        <path fill="#879296" d="M13.92 18.07c.142-.016.278-.074.39-.166.077-.107.118-.237.116-.37 0 0 0-1.13.516-1.296.517-.165 1.208 1.09 1.95 1.58.276.213.624.314.973.28h1.95s.973-.057.525-.837c-.38-.62-.865-1.17-1.432-1.626-1.208-1.1-1.043-.916.41-2.816.886-1.16 1.236-1.86 1.13-2.163-.108-.302-.76-.214-.76-.214h-2.164c-.092-.026-.19-.026-.282 0-.083.058-.15.135-.195.225-.224.57-.49 1.125-.8 1.656-.973 1.61-1.344 1.697-1.51 1.59-.37-.234-.272-.975-.272-1.433 0-1.56.243-2.202-.468-2.377-.32-.075-.647-.108-.974-.098-.604-.052-1.213.01-1.793.186-.243.116-.438.38-.32.4.245.018.474.13.642.31.152.303.225.638.214.975 0 0 .127 1.832-.302
-SVG namespace
-www.w3.org
-2.056-.43.223-.692-.167-1.55-1.618-.29-.506-.547-1.03-.77-1.57-.038-.09-.098-.17-.174-.233-.1-.065-.214-.108-.332-.128H6.485s-.312 0-.42.137c-.106.135 0 .36 0 .36.87 2 2.022 3.868 3.42 5.543.923.996 2.21 1.573 3.567 1.598z" />
+                        <path fill="#879296" d="M13.92 18.07c.142-.016.278-.074.39-.166.077-.107.118-.237.116-.37 0 0 0-1.13.516-1.296.517-.165 1.208 1.09 1.95 1.58.276.213.624.314.973.28h1.95s.973-.057.525-.837c-.38-.62-.865-1.17-1.432-1.626-1.208-1.1-1.043-.916.41-2.816.886-1.16 1.236-1.86 1.13-2.163-.108-.302-.76-.214-.76-.214h-2.164c-.092-.026-.19-.026-.282 0-.083.058-.15.135-.195.225-.224.57-.49 1.125-.8 1.656-.973 1.61-1.344 1.697-1.51 1.59-.37-.234-.272-.975-.272-1.433 0-1.56.243-2.202-.468-2.377-.32-.075-.647-.108-.974-.098-.604-.052-1.213.01-1.793.186-.243.116-.438.38-.32.4.245.018.474.13.642.31.152.303.225.638.214.975 0 0 .127 1.832-.302 2.056-.43.223-.692-.167-1.55-1.618-.29-.506-.547-1.03-.77-1.57-.038-.09-.098-.17-.174-.233-.1-.065-.214-.108-.332-.128H6.485s-.312 0-.42.137c-.106.135 0 .36 0 .36.87 2 2.022 3.868 3.42 5.543.923.996 2.21 1.573 3.567 1.598z" />
                     </svg>
                 </a>
             </div>
