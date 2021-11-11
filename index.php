@@ -1,7 +1,51 @@
 <?php
 $is_auth = rand(0, 1);
-
 $user_name = 'Кирилл';
+$categories = [
+    'boards' => 'Доски и лыжи',
+    'fasteners' => 'Крепления',
+    'boots' => 'Ботинки',
+    'clothes' => 'Одежда',
+    'tools' => 'Инструменты',
+    'other' => 'Разное'];
+$products = [
+    [
+        'title' => '2014 Rossignol District Snowboard',
+        'category' => $categories['boards'],
+        'price' => 10999,
+        'url_picture' => 'img/lot-1.jpg'
+    ],
+    [
+        'title' => 'DC Ply Mens 2016/2017 Snowboard',
+        'category' => $categories['boards'],
+        'price' => 159999,
+        'url_picture' => 'img/lot-2.jpg'
+    ],
+    [
+        'title' => 'Крепления Union Contact Pro 2015 года размер L/XL',
+        'category' => $categories['fasteners'],
+        'price' => 8000,
+        'url_picture' => 'img/lot-3.jpg'
+    ],
+    [
+        'title' => 'Ботинки для сноуборда DC Mutiny Charocal',
+        'category' => $categories['boots'],
+        'price' => 10999,
+        'url_picture' => 'img/lot-4.jpg'
+    ],
+    [
+        'title' => 'Куртка для сноуборда DC Mutiny Charocal',
+        'category' => $categories['clothes'],
+        'price' => 7500,
+        'url_picture' => 'img/lot-5.jpg'
+    ],
+    [
+        'title' => 'Маска Oakley Canopy',
+        'category' => $categories['other'],
+        'price' => 5400,
+        'url_picture' => 'img/lot-6.jpg'
+    ]
+];
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -20,7 +64,7 @@ $user_name = 'Кирилл';
             <div class="main-header__container container">
                 <h1 class="visually-hidden">YetiCave</h1>
                 <a class="main-header__logo">
-                    <img src="../img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
+                    <img src="./img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
                 </a>
                 <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru" autocomplete="off">
                     <input type="search" name="search" placeholder="Поиск лота">
@@ -29,7 +73,7 @@ $user_name = 'Кирилл';
                 <a class="main-header__add-lot button" href="pages/add-lot.html">Добавить лот</a>
 
                 <nav class="user-menu">
-                    <?php if ($is_auth): ?>
+                    <?php if ($is_auth) : ?>
                         <div class="user-menu__logged">
                             <p><?= $user_name; ?></p>
                             <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
@@ -54,10 +98,11 @@ $user_name = 'Кирилл';
                 <h2 class="promo__title">Нужен стафф для катки?</h2>
                 <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
                 <ul class="promo__list">
-                    <!--заполните этот список из массива категорий-->
-                    <li class="promo__item promo__item--boards">
-                        <a class="promo__link" href="pages/all-lots.html">Имя категории</a>
-                    </li>
+                    <?php foreach ($categories as $modifier => $category) : ?>
+                        <li class="promo__item promo__item--<?= $modifier ?>">
+                            <a class="promo__link" href="pages/all-lots.html"><?= $category ?></a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </section>
             <section class="lots">
@@ -65,25 +110,26 @@ $user_name = 'Кирилл';
                     <h2>Открытые лоты</h2>
                 </div>
                 <ul class="lots__list">
-                    <!--заполните этот список из массива с товарами-->
-                    <li class="lots__item lot">
-                        <div class="lot__image">
-                            <img src="" width="350" height="260" alt="">
-                        </div>
-                        <div class="lot__info">
-                            <span class="lot__category">Название категории</span>
-                            <h3 class="lot__title"><a class="text-link" href="pages/lot.html">Название товара</a></h3>
-                            <div class="lot__state">
-                                <div class="lot__rate">
-                                    <span class="lot__amount">Стартовая цена</span>
-                                    <span class="lot__cost">цена<b class="rub">р</b></span>
-                                </div>
-                                <div class="lot__timer timer">
-                                    12:23
+                    <?php foreach ($products as $product) : ?>
+                        <li class="lots__item lot">
+                            <div class="lot__image">
+                                <img src="<?= $product['url_picture'] ?>" width="350" height="260" alt="">
+                            </div>
+                            <div class="lot__info">
+                                <span class="lot__category"><?= $product['category'] ?></span>
+                                <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?= $product['title'] ?></a></h3>
+                                <div class="lot__state">
+                                    <div class="lot__rate">
+                                        <span class="lot__amount">Стартовая цена</span>
+                                        <span class="lot__cost"><?= $product['price'] ?><b class="rub">р</b></span>
+                                    </div>
+                                    <div class="lot__timer timer">
+                                        12:23
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </section>
         </main>
@@ -92,10 +138,12 @@ $user_name = 'Кирилл';
     <footer class="main-footer">
         <nav class="nav">
             <ul class="nav__list container">
-                <!--заполните этот список из массива категорий-->
-                <li class="nav__item">
-                    <a href="pages/all-lots.html">Название категории</a>
-                </li>
+                <?php foreach ($categories as $category) : ?>
+                    <li class="nav__item">
+                        <a href="pages/all-lots.html"><?= $category ?></a>
+                    </li>
+                <?php endforeach; ?>
+
             </ul>
         </nav>
         <div class="main-footer__bottom container">
