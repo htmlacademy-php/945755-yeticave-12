@@ -42,19 +42,14 @@ $products = [
     [
         'title' => 'Маска Oakley Canopy',
         'category' => $categories['other'],
-        'price' => 5400,
+        'price' => 0,
         'url_picture' => 'img/lot-6.jpg'
     ]
 ];
 
 function formatting($num) {
-    if ($num > 999) {
-        $num = number_format(ceil($num), 0, '', ' ',);
-        print($num . ' ' . '₽');
-    }
-    else {
-        print(ceil($num) . ' ' . '₽');
-    }
+    $num = number_format(ceil($num), 0, '', ' ',);
+    return($num . ' ' . '₽');
 }
 
 ?>
