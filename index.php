@@ -42,7 +42,7 @@ $products = [
     [
         'title' => 'Маска Oakley Canopy',
         'category' => $categories['other'],
-        'price' => 0,
+        'price' => 5400,
         'url_picture' => 'img/lot-6.jpg'
     ]
 ];
