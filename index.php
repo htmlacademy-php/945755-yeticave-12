@@ -1,6 +1,7 @@
 <?php
 $is_auth = rand(0, 1);
 $user_name = 'Кирилл';
+require('helpers.php');
 $categories = [
     'boards' => 'Доски и лыжи',
     'fasteners' => 'Крепления',
@@ -49,25 +50,8 @@ $products = [
 ];
 
 function formatting($num) {
-    $num = number_format(ceil($num), 0, '', ' ',);
+    $num = number_format(ceil($num), 0, '', ' ');
     return($num . ' ' . '₽');
-};
-
-function include_template($name, array $data = []) {
-    $name = 'templates/' . $name;
-    $result = '';
-
-    if (!is_readable($name)) {
-        return $result;
-    }
-
-    ob_start();
-    extract($data);
-    require $name;
-
-    $result = ob_get_clean();
-
-    return $result;
 };
 
 $main_content = [];
