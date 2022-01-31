@@ -28,10 +28,10 @@
                                         <span class="lot__cost"><?= htmlspecialchars(formatting($product['price'])) ?></span>
                                     </div>
                                     <?php $timer = elapsedTime($product['date_range']); ?>
-                                    <?php $timer_finish = ""; ?>
-                                    <?php if ($timer[0] < 1): ?>
-                                    <? $timer_finishing = "timer--finishing"; ?>
-                                    <? endif; ?>
+                                    <?php $timer_finish = "";
+                                      if ($timer[0] < 1):
+                                        $timer_finishing = "timer--finishing";
+                                      endif; ?>
                                     <div class="lot__timer timer <?= $timer_finishing; ?>">
                                         <?= $timer[0] ?> : <?= $timer[1]; ?>
                                     </div>
