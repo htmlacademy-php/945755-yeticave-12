@@ -1,37 +1,41 @@
-CREATE DATABASe yeticave
+CREATE DATABASE IF NOT EXISTS yeticave
 DEFAULT CHARACTER SET UTF8
 DEFAULT COLLATE UTF8_GENERAL_CI ;
 
 use yeticave;
 
-CREATE TABLE categories (
+CREATE TABLE IF NOT EXISTS categories (
 id INT AUTO_INCREMENT PRIMARY KEY,
-category VARCHAR(64),
-category_id INT(64)
+name varchar(128) not null
 );
 
-CREATE TABLE lot (
+CREATE TABLE IF NOT EXISTS lot (
 id INT AUTO_INCREMENT PRIMARY KEY,
 dt_add TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-name char(255),
-description char(255),
-path char(255),
-start_price int,
-next_time timestamp,
-step int
+name varchar(128) not null,
+lot_creator varchar(128) not null,
+lot_category varchar(128) not null,
+lot_winer varchar(128),
+description varchar(128) not null,
+path text(255),
+start_price int not null,
+complition_time timestamp,
+step decimal(8,2)
 );
 
-CREATE TABLE bid (
+CREATE TABLE IF NOT EXISTS bid (
 id INT AUTO_INCREMENT PRIMARY KEY,
 dt_price_add TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-bid_price int
+bid_price decimal(8,2) not null,
+bit_creator varchar(128) not null,
+bit_lot varchar(128) not null
 );
 
-CREATE TABLE user (
+CREATE TABLE IF NOT EXISTS user (
 id INT AUTO_INCREMENT PRIMARY KEY,
 dt_registration_add TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 email varchar(128) not null unique,
-username char(64) not null unique,
-password char(64),
-user_contact char(255)
+username varchar(128) not null unique,
+password varchar(128) not null,
+user_contact varchar(128) not null
 );
