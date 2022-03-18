@@ -37,9 +37,7 @@ dt_registration_add TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 email varchar(128) not null unique,
 username varchar(128) not null unique,
 password varchar(128) not null,
-user_contact varchar(128) not null,
-user_bid int,
-user_lot int
+user_contact varchar(128) not null
 );
 
 ALTER TABLE lot ADD
@@ -56,9 +54,3 @@ FOREIGN KEY (bid_creator) REFERENCES user (id);
 
 ALTER TABLE bid ADD
 FOREIGN KEY (bid_lot) REFERENCES lot (id);
-
-ALTER TABLE user ADD
-FOREIGN KEY (user_lot) REFERENCES lot (id);
-
-ALTER TABLE user ADD
-FOREIGN KEY (user_bid) REFERENCES bid (id);
